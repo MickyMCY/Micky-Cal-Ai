@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora de Calorias</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: #0e1014;
+      color: white;
+    }
+
+    .quiz-container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    .question-box {
+      margin-top: 40px;
+      text-align: center;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .question-box h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .question-box input,
+    .question-box select,
+    .question-box button {
+      padding: 12px;
+      width: 100%;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .question-box button {
+      background: #00ffc6;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background-color: #292d3e;
+      margin-top: 0;
+    }
+
+    .progress {
+      height: 8px;
+      background-color: #00ffc6;
+      width: 0%;
+      transition: width 0.3s;
+    }
+
+    .graphic {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 30px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .graphic img {
+      width: 120px;
+      height: auto;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar">
+    <div class="progress" id="progress"></div>
+  </div>
+
+  <div class="quiz-container">
+    <div class="graphic" id="graphic">
+      <img src="https://cdn-icons-png.flaticon.com/512/869/869636.png" alt="Início" />
+    </div>
+
+    <div class="question-box" id="questionBox">
+      <!-- Pergunta será carregada dinamicamente -->
+    </div>
+  </div>
+
+  <script>
+    const perguntas = [
+      { pergunta: "Qual é o teu nome?", tipo: "input", placeholder: "Escreve o teu nome" },
+      { pergunta: "Qual é a tua idade?", tipo: "input", placeholder: "Ex: 24" },
+      { pergunta: "Qual é o teu peso (kg)?", tipo: "input", placeholder: "Ex: 60" },
+      { pergunta: "Qual é a tua altura (cm)?", tipo: "input", placeholder: "Ex: 180" },
+      {
+        pergunta: "Qual é o teu nível de actividade física?",
+        tipo: "select",
+        opcoes: ["Sedentário", "Leve", "Moderado", "Intenso"]
+      },
+      {
+        pergunta: "Qual é o teu objectivo?",
+        tipo: "select",
+        opcoes: ["Perder peso", "Ganhar massa", "Manter peso"]
+      }
+    ];
+
+    const graficos = [
+      "https://cdn-icons-png.flaticon.com/512/869/869636.png",
+      "https://cdn-icons-png.flaticon.com/512/1077/1077114.png",
+      "https://cdn-icons-png.flaticon.com/512/833/833472.png",
+      "https://cdn-icons-png.flaticon.com/512/1040/1040230.png",
+      "https://cdn-icons-png.flaticon.com/512/2950/2950651.png",
+      "https://cdn-icons-png.flaticon.com/512/3322/3322192.png",
+      "https://cdn-icons-png.flaticon.com/512/684/684908.png"
+    ];
+
+    let passo = 0;
+
+    function carregarPergunta() {
+      const box = document.getElementById("questionBox");
+      const grafico = document.getElementById("graphic");
+      const progresso = document.getElementById("progress");
+      const item = perguntas[passo];
+
+      progresso.style.width = ((passo) / perguntas.length) * 100 + "%";
+      grafico.innerHTML = `<img src="${graficos[passo]}" alt="Etapa" />`;
+
+      if (item.tipo === "input") {
+        box.innerHTML = `
+          <h2>${item.pergunta}</h2>
+          <input type="text" placeholder="${item.placeholder}" id="resposta" />
+          <button onclick="next()">Continuar</button>
+        `;
+      } else if (item.tipo === "select") {
+        const opcoesHTML = item.opcoes.map(op => `<option>${op}</option>`).join('');
+        box.innerHTML = `
+          <h2>${item.pergunta}</h2>
+          <select id="resposta">${opcoesHTML}</select>
+          <button onclick="next()">Continuar</button>
+        `;
+      }
+    }
+
+    function next() {
+      const valor = document.getElementById("resposta").value.trim();
+      if (!valor) return alert("Por favor, responde à pergunta.");
+
+      passo++;
+      if (passo < perguntas.length) {
+        carregarPergunta();
+      } else {
+        document.getElementById("questionBox").innerHTML = `
+          <h2>A calcular os teus dados personalizados...</h2>
+          <button onclick="window.location.href='resultado.html'">Ver Resultado</button>
+        `;
+        document.getElementById("graphic").innerHTML = `
+          <img src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png" />
+        `;
+        document.getElementById("progress").style.width = "100%";
+      }
+    }
+
+    carregarPergunta();
+  </script>
+
+</body>
+</html>
