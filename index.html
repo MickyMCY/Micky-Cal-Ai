@@ -2,34 +2,26 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Micky Calorie AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cal AI - Começar</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="splash-screen" id="splash">
-    <h1 class="logo">Micky Calorie AI</h1>
+
+  <div class="background-overlay">
+    <div class="container">
+      <img src="logo.png" alt="Logo Cal AI" class="logo" />
+      
+      <h1 class="title">Vamos começar</h1>
+      <p class="subtitle">O Cal AI cria planos para emagrecimento duradouro, com base no teu corpo</p>
+
+      <form class="form">
+        <input type="text" placeholder="O teu nome" required />
+      </form>
+
+      <button class="start-btn">Começar</button>
+    </div>
   </div>
 
-  <div class="app hidden" id="app">
-    <header>
-      <div class="lang-select">
-        <img src="https://flagcdn.com/w40/gb.png" alt="Idioma" />
-        <select id="language">
-          <option value="pt">🇵🇹 Português</option>
-          <option value="en">🇬🇧 English</option>
-          <option value="fr">🇫🇷 Français</option>
-        </select>
-      </div>
-    </header>
-
-    <main>
-      <h2>Bem-vindo ao Micky Calorie AI</h2>
-      <p>Responde ao quiz para calcular o teu consumo ideal!</p>
-      <button id="startQuiz">Começar</button>
-    </main>
-  </div>
-
-  <script src="script.js"></script>
 </body>
 </html>
