@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz 1 - Cal AI</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .question-container {
+      text-align: center;
+      color: white;
+      padding: 40px 20px;
+    }
+
+    .question-title {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .question-sub {
+      font-size: 1rem;
+      color: #ccc;
+      margin-bottom: 30px;
+    }
+
+    .answer-btn {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 15px;
+      background: #4fb2ff;
+      color: white;
+      border: none;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .graph-loading {
+      display: none;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .bar {
+      width: 100%;
+      background-color: #333;
+      border-radius: 10px;
+      overflow: hidden;
+      height: 20px;
+      margin-top: 20px;
+    }
+
+    .progress {
+      width: 0%;
+      height: 100%;
+      background-color: #4fb2ff;
+      animation: loadBar 2s forwards;
+    }
+
+    @keyframes loadBar {
+      to {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="background-overlay">
+    <div class="container">
+      <div class="question-container">
+        <h1 class="question-title">Vamos entender o teu corpo</h1>
+        <p class="question-sub">Qual é o teu género?</p>
+
+        <button class="answer-btn" onclick="responder()">Homem</button>
+        <button class="answer-btn" onclick="responder()">Mulher</button>
+
+        <div class="graph-loading" id="graph">
+          <p>Analisando respostas...</p>
+          <div class="bar">
+            <div class="progress"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function responder() {
+      document.querySelectorAll(".answer-btn").forEach(btn => btn.disabled = true);
+      document.getElementById("graph").style.display = "block";
+
+      setTimeout(() => {
+        window.location.href = "quiz2.html";
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>
